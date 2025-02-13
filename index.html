@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You, Zubin❤️🌏💍</title>
+    <style>
+   #noButton {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ff78bc;
+    color: white;
+    border: none;
+    padding: 15px 30px; /* Exact size as Yes button */
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.2em; /* Ensures same text size */
+    width: 150px; /* Set a fixed width */
+    height: 50px; /* Set a fixed height */
+    transition: left 0.2s, top 0.2s; /* Smooth movement */
+}
+
+
+
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to bottom, #fff, #ffccff, #ccddff);
+            overflow: hidden;
+            flex-direction: column;
+            position: relative;
+            color: black;
+        }
+        #container {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+            width: 70%;
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        h2 {
+            font-size: 1.5em;
+        }
+        p {
+            font-size: 1.2em;
+            text-align: center;
+        }
+        button {
+            background: #ff78bc;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 1.5em;
+            transition: transform 0.001s;
+        }
+        button:hover {
+            background: #ff78bc;
+            transform: scale(1.1);
+        }
+        .heart {
+            position: absolute;
+            color: rgb(255, 112, 136);
+            font-size: 30px;
+            animation: floatUp 4s linear infinite;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(1); opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        }
+        #stepImage {
+            width: 200px;
+            height: auto;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+        #nextButton {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: #ff78bc;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 10px;
+            cursor: pointer;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        function createHearts() {
+            setInterval(() => {
+                let heart = document.createElement("div");
+                heart.innerHTML = "❤️";
+                heart.classList.add("heart");
+                heart.style.left = Math.random() * 100 + "vw";
+                heart.style.animationDuration = (Math.random() * 1 + 1) + "s";
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 4000);
+            }, 300);
+        }
+        createHearts();
+    </script>
+
+    <div id="container">
+        <img id="stepImage" width="300px" height="auto">
+
+        <h2 id="question">Jhubuli, If I had a rupee for every time I made you mad, I’d be a billionaire… but also the saddest billionaire without you. So… are we good or youre still mad at me? 😢💕</h2>
+        <div id="options">
+            <button id="yesButton" onmouseover="moveButton()">Yes bitch🖕🏻</button>
+            <button onclick="nextStep(1)">No babe, I forgive you! 😘</button>
+        </div>
+        <button id="nextButton" onclick="nextStep(step + 1)">➡️</button>
+    </div>
+
+    <script>
+       function moveButton() {
+    let btn = document.getElementById('yesButton');
+    let container = document.getElementById('container');
+    let containerRect = container.getBoundingClientRect();
+    let btnWidth = btn.offsetWidth;
+    let btnHeight = btn.offsetHeight;
+    let x = Math.random() * (containerRect.width - btnWidth);
+    let y = Math.random() * (containerRect.height - btnHeight);
+    btn.style.position = "absolute";
+    btn.style.left = `${x}px`;
+    btn.style.top = `${y}px`;
+}
+
+
+
+        let step = 0;
+        const steps = [
+            { question: "Love Meter ❤️ (click on START to know how much i love you😉)", options: `<progress id='loveMeter' value='0' max='100'></progress><p id='blastMessage'></p><button onclick='fillMeter()'>Start</button>`, image: "img4.jpeg" },
+            { question: "Spin the Wheel! 🎡 (Click on   SPIN again if you are not satisfied with the gift. You get to re-spin only thrice", options: `<div id='wheel'>🎡 Spinning...🎡</div><button onclick='spinWheel()'>Spin and wait for 5 seconds to know the gift</button><p id='wheelResult'></p>`, image: "img3.jpeg" },
+            { question: "Love Quiz Time!– Do You Even Know US? 🧐", options: `<p>Where did we first meet? 💕</p><button onclick='checkAnswer(true)'>College</button><button onclick='checkAnswer(false)'>Infinity Mall</button><p id='quizMessage'></p>`, image: "img6.jpeg" },
+            { question: "A Secret Message for you... 🤫", options: `<button onclick='revealSecret()'>Reveal</button><p id='secretMsg'></p>`, image: "img2.jpeg" },
+            { question: "Game time!🎮 Time to prove your reflexes, my love! Catch as many hearts as you can—each one is a token of my affection (and maybe a free kiss)!💘", options: `<canvas id="heartGameCanvas"></canvas><p id="scoreDisplay">Score: 0</p><button onclick="startHeartGame()">Start Game</button>`, image: "img5.jpeg" }, 
+    { 
+        question: "This is the grand finale, the moment of truth! One final question: Will you be my valentine (forever?)", 
+        options: `
+            <button onclick='showFinalMessage()'>Yes, a million times yes! ❤️</button>
+            <button id="noButton" onmouseover="moveNoButton()">No 😬</button>
+        `, 
+        image: "img1.jpeg" 
+    }
+];
+
+
+
+function moveNoButton() {
+    let btn = document.getElementById('noButton');
+    let container = document.getElementById('container');
+    let containerRect = container.getBoundingClientRect();
+    let btnWidth = btn.offsetWidth;
+    let btnHeight = btn.offsetHeight;
+
+    let newX = Math.random() * (containerRect.width - btnWidth);
+    let newY = Math.random() * (containerRect.height - btnHeight);
+
+    btn.style.position = "absolute";
+    btn.style.left = `${newX}px`;
+    btn.style.top = `${newY}px`;
+    btn.style.transition = "left 0.2s, top 0.2s"; // Smooth movement
+}
+
+        
+    
+        function nextStep(num) {
+    step = num;
+    document.getElementById('question').innerText = steps[step - 1].question;
+    document.getElementById('options').innerHTML = steps[step - 1].options;
+
+    let imageElement = document.getElementById('stepImage');
+    imageElement.src = steps[step - 1].image;
+
+    if (step === steps.length) {
+        document.getElementById('options').innerHTML = `
+            <button onclick="showFinalMessage()">Yes, a million times yes! ❤️</button>
+            <button id="noButton" onmouseover="moveNoButton()">No🙄</button>
+        `;
+    }
+
+    document.getElementById('nextButton').style.display = step > 1 ? "block" : "none";
+}
+
+
+
+        function fillMeter() {
+            let meter = document.getElementById('loveMeter');
+            let blastMessage = document.getElementById('blastMessage');
+            let value = 0;
+            let interval = setInterval(() => {
+                value += 10;
+                meter.value = value;
+                if (value >= 100) {
+                    clearInterval(interval);
+                    blastMessage.innerText = "💥BOOM!💥 My love for you just broke the scale. Try again if you dare—but spoiler alert: It’ll always be MAX!❤️🌏💍)";
+                    document.getElementById('nextButton').style.display = "block";  // Show next button
+                }
+            }, 300);
+        }
+
+        function spinWheel() {
+            let wheel = document.getElementById('wheel');
+            let outcomes = ["You've won... A 5-minute make-out session 😘", "You've won... A steamy shower together 🚿🔥", "You've won... A full-body kiss session (you choose where to start 😘)", "You've won... A ‘no clothes’ cuddle session 😏🔥", "You've won... You get to command me for 10 minutes 😈"];
+            let result = outcomes[Math.floor(Math.random() * outcomes.length)];
+            wheel.style.transform = `rotate(${Math.random() * 360 + 1080}deg)`;
+            setTimeout(() => {
+                document.getElementById('wheelResult').innerText = result;
+                document.getElementById('nextButton').style.display = "block"; // Show next button
+            }, 3000);
+        }
+
+        function checkAnswer(isCorrect) {
+            let message = document.getElementById('quizMessage');
+            if (isCorrect) {
+                message.innerHTML = "✅ Correct! We first met in college! 🏫💕";
+            } else {
+                alert("❌ Incorrect!");
+                message.innerHTML = "Idiot! Infinity Mall was our first date, but we first met in college no??? 😤😂";
+            }
+            document.getElementById('nextButton').style.display = "block";  // Show next button
+        }
+
+        function revealSecret() {
+            document.getElementById('secretMsg').innerText = "To My Dearest Zubin, ❤️💍My Gujarati chhoco roll and Marathi modak, you are the sweetest part of my life! 🍫💕Loving you feels like a Navratri night and a Ganpati visarjan combined—full of energy, excitement, and something I never want to end. Your hugs are warmer than freshly made undhiyu, and your love is as comforting as hot varan-bhaat on a rainy day. 🌧️🍛You make my world “majja ni life” and my heart say “kay mast aahe re!” With every laugh, every fight, every stolen kiss, I fall for you a little more. Tujhya sathi kay pan! 💖 Lastly, Hu Tane prem karu chu, ani mi tujhyavar agdi jivapasu prem karte! 💋💍"
+            document.getElementById('nextButton').style.display = "block";  // Show next button
+        }
+        function showFinalMessage() {
+    document.getElementById('container').innerHTML = `<video id="finalVideo" width="100%" controls autoplay>
+            <source src="video1.mp4" type="video/mp4">Your browser does not support the video tag.</video><p>I miss going on rides with you like this ☹️👆🏻. Will you forgive me and come on a date?😍</p>`;
+}
+
+let gameInterval;
+let heartGameCanvas;
+let ctx;
+let basketX = 150;
+let hearts = [];
+let score = 0;
+let isGameRunning = false;
+
+function startHeartGame() {
+    heartGameCanvas = document.getElementById("heartGameCanvas");
+    heartGameCanvas.width = 400;
+    heartGameCanvas.height = 500;
+    ctx = heartGameCanvas.getContext("2d");
+    
+    document.addEventListener("mousemove", moveBasket);
+    score = 0;
+    hearts = [];
+    isGameRunning = true;
+
+    gameInterval = setInterval(updateHeartGame, 50);
+}
+
+function moveBasket(event) {
+    let rect = heartGameCanvas.getBoundingClientRect();
+    basketX = event.clientX - rect.left - 40;
+}
+
+function updateHeartGame() {
+    if (!isGameRunning) return;
+
+    ctx.clearRect(0, 0, heartGameCanvas.width, heartGameCanvas.height);
+
+    // Draw basket
+    ctx.fillStyle = "brown";
+    ctx.fillRect(basketX, 450, 80, 20);
+
+    // Create new hearts randomly
+    if (Math.random() < 0.05) {
+        hearts.push({ x: Math.random() * 350, y: 0 });
+    }
+
+    // Move hearts down
+    for (let i = 0; i < hearts.length; i++) {
+        hearts[i].y += 5;
+        ctx.fillStyle = "red";
+        ctx.beginPath();
+        ctx.arc(hearts[i].x + 10, hearts[i].y, 10, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Check if heart is caught
+        if (hearts[i].y > 450 && hearts[i].x > basketX && hearts[i].x < basketX + 80) {
+            score++;
+            hearts.splice(i, 1);
+            document.getElementById("scoreDisplay").innerText = `Score: ${score}`;
+        }
+    }
+
+    // Stop game after reaching a score
+    if (score >= 10) {
+        isGameRunning = false;
+        clearInterval(gameInterval);
+        document.getElementById("scoreDisplay").innerText = `Final Score: ${score} OMG! You caught them all! You officially own my heart (not that you didn’t already)! ❤️`;
+        document.getElementById("nextButton").style.display = "block";  // Show next button
+    }
+}
+
+    </script>
+</body>
+</html>        
